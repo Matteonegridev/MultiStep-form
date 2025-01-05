@@ -1,5 +1,3 @@
-//TODO creare i primi 3 inputs name, email e number. Button per andare avanti. Utilizzare React Hook Form per la validazione con zod e shadcn per il component.
-
 import { useForm } from "react-hook-form";
 import { zodValidation, schemaValues } from "../../schema/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +22,19 @@ function StepOne() {
       number: "",
     },
   });
+
+  const name = form.watch("name");
+  const email = form.watch("email");
+  const number = form.watch("number");
+
+  const filledFields =
+    name.trim() !== "" && email.trim() !== "" && number.trim() !== "";
+
+  const handleDisable = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!filledFields) {
+      e.preventDefault();
+    }
+  };
 
   function onSubmit(values: schemaValues) {
     // Do something with the form values.
@@ -79,8 +90,10 @@ function StepOne() {
           />
         </form>
       </Form>
-      <button disabled={!form.watch} className="bg-primary text-white">
-        <NavLink to={"/plan"}>Next</NavLink>
+      <button className="cursor-pointer bg-primary p-4 text-white">
+        <NavLink onClick={handleDisable} className="" to={"/plan"}>
+          Next
+        </NavLink>
       </button>
     </section>
   );

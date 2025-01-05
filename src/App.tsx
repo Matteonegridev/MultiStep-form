@@ -1,5 +1,16 @@
+import { BrowserRouter, Route, Routes } from "react-router";
+import StepOne from "./components/routes/StepOne";
+import StepTwo from "./components/routes/StepTwo";
+
 function App() {
-  return <div className="m-auto flex p-0 ~text-lg/3xl">Hello</div>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<StepOne />} />
+        <Route path="/plan" element={<StepTwo />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -11,9 +11,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { NavLink } from "react-router";
+import ButtonNext from "@/utils/ButtonNext";
 
-function StepOne() {
+export type StepsProps = {
+  currentStep: number;
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+};
+
+function StepOne({ setCurrentStep }: StepsProps) {
   const form = useForm<SchemaValues>({
     resolver: zodResolver(zodValidation),
     mode: "all",
@@ -90,11 +95,11 @@ function StepOne() {
           />
         </form>
       </Form>
-      <button className="cursor-pointer bg-primary p-4 text-white">
-        <NavLink onClick={handleDisable} className="" to={"/plan"}>
-          Next
-        </NavLink>
-      </button>
+      <ButtonNext
+        onClick={handleDisable}
+        setStep={setCurrentStep}
+        step="/plan"
+      />
     </section>
   );
 }

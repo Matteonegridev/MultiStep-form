@@ -1,15 +1,12 @@
-import { BrowserRouter, Route, Routes } from "react-router";
-import StepOne from "./components/routes/StepOne";
-import StepTwo from "./components/routes/StepTwo";
+import Form from "./components/Form";
+import Steps from "./components/Steps";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<StepOne />} />
-        <Route path="/plan" element={<StepTwo />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <Steps />
+      <Form />
+    </>
   );
 }
 

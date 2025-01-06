@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { zodValidation, schemaValues } from "../../schema/zodSchema";
+import { zodValidation, SchemaValues } from "../../schema/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -14,8 +14,9 @@ import { Input } from "@/components/ui/input";
 import { NavLink } from "react-router";
 
 function StepOne() {
-  const form = useForm<schemaValues>({
+  const form = useForm<SchemaValues>({
     resolver: zodResolver(zodValidation),
+    mode: "all",
     defaultValues: {
       name: "",
       email: "",
@@ -36,7 +37,7 @@ function StepOne() {
     }
   };
 
-  function onSubmit(values: schemaValues) {
+  function onSubmit(values: SchemaValues) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
@@ -55,7 +56,6 @@ function StepOne() {
                 <FormControl>
                   <Input placeholder="e.g. Stephen King" {...field} />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}

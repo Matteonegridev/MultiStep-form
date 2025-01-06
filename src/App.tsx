@@ -1,12 +1,10 @@
 import Form from "./components/Form";
-import Steps from "./components/Steps";
 
 function App() {
   return (
-    <>
-      <Steps />
+    <div>
       <Form />
-    </>
+    </div>
   );
 }
 

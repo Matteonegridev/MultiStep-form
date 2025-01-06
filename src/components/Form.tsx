@@ -1,10 +1,11 @@
-import { BrowserRouter, Route, Routes } from "react-router";
-import StepOne from "./routes/StepOne";
-import StepTwo from "./routes/StepTwo";
 import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router";
+import StepOne from "./routes/PersonalInfo";
+import StepTwo from "./routes/SelectPlan";
 
 function Form() {
   const [currentStep, setCurrentStep] = useState(0);
+  const titles = ["page1", "page2", "page3", "page4"];
   return (
     <div>
       <BrowserRouter>

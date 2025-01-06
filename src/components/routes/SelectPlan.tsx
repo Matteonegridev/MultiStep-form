@@ -1,4 +1,4 @@
-import { type StepsProps } from "./StepOne";
+import { type StepsProps } from "./PersonalInfo";
 import ButtonNext from "@/utils/ButtonNext";
 import ButtonPrev from "@/utils/ButtonPrev";
 

@@ -1,10 +1,18 @@
+import { useContextHook } from "@/context/useContextHook";
+
 function Stepper() {
-  const steps = ["page1", "page2", "page3", "page4"];
+  const steps = ["Personal Info", "Plan", "Add Ons", "Summary"];
+  const { currentStep } = useContextHook();
   return (
     <div className="p-2">
       <ul className="flex justify-center gap-4">
         {steps.map((steps, i) => (
-          <li key={i}>{steps}</li>
+          <li
+            className={`${currentStep !== i ? "text-secondary" : "font-bold"}`}
+            key={i}
+          >
+            {steps}
+          </li>
         ))}
       </ul>
     </div>

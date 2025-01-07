@@ -5,9 +5,10 @@ import Stepper from "./Stepper";
 import AddOns from "./routes/AddOns";
 import Summary from "./routes/Summary";
 import { FormProvider, useForm } from "react-hook-form";
-import StepContext from "@/context/stepContext";
+import StepContext from "@/context/StepContext";
 
 function Form() {
+  // Provide context for the form:
   const MainFormMethods = useForm();
   return (
     <div>

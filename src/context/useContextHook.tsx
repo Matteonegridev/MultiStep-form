@@ -1,13 +1,14 @@
-import { createContext, Dispatch, SetStateAction, useContext } from "react";
+import { createContext, useContext } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 type ContextProps = {
   currentStep: number;
   setCurrentStep: Dispatch<SetStateAction<number>>;
 };
 
-export const StepProvider = createContext<ContextProps | null>(null);
+export const StepProvider = createContext<ContextProps | undefined>(undefined);
 
-// Use Context:
+// Use Context in each file with a custom hook: The custom hook already takes the useContext.
 export const useContextHook = () => {
   const context = useContext(StepProvider);
 

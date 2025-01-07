@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useContextHook } from "@/context/useContextHook";
 
 export type StepsProps = {
   currentStep: number;
@@ -29,8 +30,11 @@ function PersonalInfo() {
     },
   });
 
+  // Hook to store data in the main form from RHF:
   const MainFormMethods = useFormContext();
   const navigate = useNavigate();
+  // Context Hook:
+  const { setCurrentStep } = useContextHook();
 
   const name = form.watch("name");
   const email = form.watch("email");
@@ -43,6 +47,7 @@ function PersonalInfo() {
     MainFormMethods.setValue("Personal Info", values);
     console.log(values);
     navigate("/plan");
+    setCurrentStep((prev) => prev + 1);
   }
 
   return (

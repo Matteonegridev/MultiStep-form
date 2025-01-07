@@ -5,9 +5,9 @@ type Props = {
   children: React.ReactNode;
 };
 
-// Export the context:
+export // Export the context to wrap the app:
 function StepContext({ children }: Props) {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState<number>(0);
 
   return (
     <StepProvider.Provider value={{ currentStep, setCurrentStep }}>

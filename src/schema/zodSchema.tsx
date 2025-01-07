@@ -8,7 +8,13 @@ const mobileRegex = (mobile: string) => {
 
 export const zodValidation = z.object({
   name: z.string().min(4).max(20),
-  email: z.string().email(),
+  email: z
+    .string()
+    .email()
+    .regex(
+      /^([A-Z0-9_+-]+\.?)*[A-Z0-9_+-]@([A-Z0-9][A-Z0-9-]*\.)+[A-Z]{2,}$/i,
+      "Invalid Email",
+    ),
   number: z
     .string()
     .nonempty({ message: "Number is mandatory" })

@@ -1,6 +1,7 @@
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { zodValidation, SchemaValues } from "../../schema/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router";
 
 import {
   Form,
@@ -11,14 +12,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import ButtonNext from "@/utils/ButtonNext";
 
 export type StepsProps = {
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function StepOne({ setCurrentStep }: StepsProps) {
+function PersonalInfo() {
   const form = useForm<SchemaValues>({
     resolver: zodResolver(zodValidation),
     mode: "all",
@@ -29,6 +29,9 @@ function StepOne({ setCurrentStep }: StepsProps) {
     },
   });
 
+  const MainFormMethods = useFormContext();
+  const navigate = useNavigate();
+
   const name = form.watch("name");
   const email = form.watch("email");
   const number = form.watch("number");
@@ -36,22 +39,17 @@ function StepOne({ setCurrentStep }: StepsProps) {
   const filledFields =
     name.trim() !== "" && email.trim() !== "" && number.trim() !== "";
 
-  const handleDisable = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!filledFields) {
-      e.preventDefault();
-    }
-  };
-
   function onSubmit(values: SchemaValues) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    MainFormMethods.setValue("Personal Info", values);
     console.log(values);
+    navigate("/plan");
   }
 
   return (
     <section>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          {/*Name Field */}
           <FormField
             control={form.control}
             name="name"
@@ -65,6 +63,7 @@ function StepOne({ setCurrentStep }: StepsProps) {
               </FormItem>
             )}
           />
+          {/*Email Field */}
           <FormField
             control={form.control}
             name="email"
@@ -79,6 +78,7 @@ function StepOne({ setCurrentStep }: StepsProps) {
               </FormItem>
             )}
           />
+          {/*Number Field */}
           <FormField
             control={form.control}
             name="number"
@@ -93,15 +93,19 @@ function StepOne({ setCurrentStep }: StepsProps) {
               </FormItem>
             )}
           />
+          <div>
+            <button
+              className="bg-primary text-white"
+              type="submit"
+              disabled={!filledFields}
+            >
+              Next
+            </button>
+          </div>
         </form>
       </Form>
-      <ButtonNext
-        onClick={handleDisable}
-        setStep={setCurrentStep}
-        step="/plan"
-      />
     </section>
   );
 }
 
-export default StepOne;
+export default PersonalInfo;

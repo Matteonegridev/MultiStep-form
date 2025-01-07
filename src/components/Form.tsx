@@ -1,35 +1,28 @@
-import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
-import StepOne from "./routes/PersonalInfo";
-import StepTwo from "./routes/SelectPlan";
+import PersonalInfo from "./routes/PersonalInfo";
+import SelectPlan from "./routes/SelectPlan";
+import Stepper from "./Stepper";
+import AddOns from "./routes/AddOns";
+import Summary from "./routes/Summary";
+import { FormProvider, useForm } from "react-hook-form";
 
 function Form() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const titles = ["page1", "page2", "page3", "page4"];
+  const steps = ["page1", "page2", "page3", "page4"];
+  const activeStep = 1;
+  const MainFormMethods = useForm();
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <StepOne
-                currentStep={currentStep}
-                setCurrentStep={setCurrentStep}
-              />
-            }
-          />
-          <Route
-            path="/plan"
-            element={
-              <StepTwo
-                currentStep={currentStep}
-                setCurrentStep={setCurrentStep}
-              />
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <FormProvider {...MainFormMethods}>
+        <Stepper activeStep={activeStep} data={steps} />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<PersonalInfo />} />
+            <Route path="/plan" element={<SelectPlan />} />
+            <Route path="/addons" element={<AddOns />} />
+            <Route path="/summary" element={<Summary />} />
+          </Routes>
+        </BrowserRouter>
+      </FormProvider>
     </div>
   );
 }

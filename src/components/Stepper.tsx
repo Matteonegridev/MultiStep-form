@@ -1,15 +1,9 @@
-type StepperProps = {
-  data: string[];
-  activeStep: number;
-};
-
-function Stepper({ data, activeStep }: StepperProps) {
-  const totalSteps = 4;
-
+function Stepper() {
+  const steps = ["page1", "page2", "page3", "page4"];
   return (
     <div className="p-2">
       <ul className="flex justify-center gap-4">
-        {data.map((steps, i) => (
+        {steps.map((steps, i) => (
           <li key={i}>{steps}</li>
         ))}
       </ul>

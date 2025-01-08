@@ -26,12 +26,12 @@ function PersonalInfo() {
   // Context Hook:
   const { setCurrentStep } = useContextHook();
 
-  const name = form.watch("personalInfo.name");
-  const email = form.watch("personalInfo.email");
-  const number = form.watch("personalInfo.number");
+  // const name = form.watch("personalInfo.name");
+  // const email = form.watch("personalInfo.email");
+  // const number = form.watch("personalInfo.number");
 
-  const filledFields =
-    name.trim() !== "" && email.trim() !== "" && number.trim() !== "";
+  // const filledFields =
+  //   name.trim() !== "" && email.trim() !== "" && number.trim() !== "";
 
   // Define the type for the onSubmit function
   const onSubmit: SubmitHandler<SchemaValues> = (values) => {
@@ -84,17 +84,12 @@ function PersonalInfo() {
                 <FormControl>
                   <Input placeholder="e.g. +1 234 567 890" {...field} />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
           />
           <div>
-            <button
-              className="bg-primary text-white"
-              type="submit"
-              disabled={!filledFields}
-            >
+            <button className="bg-primary text-white" type="submit">
               Next
             </button>
           </div>

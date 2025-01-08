@@ -6,14 +6,26 @@ import AddOns from "./routes/AddOns";
 import Summary from "./routes/Summary";
 import { FormProvider, useForm } from "react-hook-form";
 import StepContext from "@/context/StepContext";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  formDefaultValues,
+  SchemaValues,
+  zodValidation,
+} from "@/schema/zodSchema";
+import { DevTool } from "@hookform/devtools";
 
 function Form() {
   // Provide context for the form:
-  const MainFormMethods = useForm();
+  const mainFormMethods = useForm<SchemaValues>({
+    resolver: zodResolver(zodValidation),
+    mode: "all",
+    defaultValues: formDefaultValues,
+  });
+
   return (
     <div>
       <StepContext>
-        <FormProvider {...MainFormMethods}>
+        <FormProvider {...mainFormMethods}>
           <Stepper />
           <BrowserRouter>
             <Routes>
@@ -22,6 +34,7 @@ function Form() {
               <Route path="/addons" element={<AddOns />} />
               <Route path="/summary" element={<Summary />} />
             </Routes>
+            <DevTool control={mainFormMethods.control} />
           </BrowserRouter>
         </FormProvider>
       </StepContext>

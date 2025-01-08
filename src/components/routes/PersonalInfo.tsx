@@ -1,6 +1,4 @@
-import { useForm, useFormContext } from "react-hook-form";
-import { zodValidation, SchemaValues } from "../../schema/zodSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router";
 
 import {
@@ -13,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useContextHook } from "@/context/useContextHook";
+import { SchemaValues } from "@/schema/zodSchema";
 
 export type StepsProps = {
   currentStep: number;
@@ -20,35 +19,27 @@ export type StepsProps = {
 };
 
 function PersonalInfo() {
-  const form = useForm<SchemaValues>({
-    resolver: zodResolver(zodValidation),
-    mode: "all",
-    defaultValues: {
-      name: "",
-      email: "",
-      number: "",
-    },
-  });
-
   // Hook to store data in the main form from RHF:
-  const MainFormMethods = useFormContext();
+  const form = useFormContext<SchemaValues>();
   const navigate = useNavigate();
+
   // Context Hook:
   const { setCurrentStep } = useContextHook();
 
-  const name = form.watch("name");
-  const email = form.watch("email");
-  const number = form.watch("number");
+  const name = form.watch("personalInfo.name");
+  const email = form.watch("personalInfo.email");
+  const number = form.watch("personalInfo.number");
 
   const filledFields =
     name.trim() !== "" && email.trim() !== "" && number.trim() !== "";
 
-  function onSubmit(values: SchemaValues) {
-    MainFormMethods.setValue("Personal Info", values);
+  // Define the type for the onSubmit function
+  const onSubmit: SubmitHandler<SchemaValues> = (values) => {
+    form.setValue("personalInfo", values.personalInfo);
     console.log(values);
     navigate("/plan");
     setCurrentStep((prev) => prev + 1);
-  }
+  };
 
   return (
     <section>
@@ -57,7 +48,7 @@ function PersonalInfo() {
           {/*Name Field */}
           <FormField
             control={form.control}
-            name="name"
+            name="personalInfo.name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Name</FormLabel>
@@ -71,7 +62,7 @@ function PersonalInfo() {
           {/*Email Field */}
           <FormField
             control={form.control}
-            name="email"
+            name="personalInfo.email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
@@ -86,7 +77,7 @@ function PersonalInfo() {
           {/*Number Field */}
           <FormField
             control={form.control}
-            name="number"
+            name="personalInfo.number"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Number</FormLabel>

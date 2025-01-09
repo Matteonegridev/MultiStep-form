@@ -3,6 +3,7 @@ import { useContextHook } from "@/context/useContextHook";
 function Stepper() {
   const steps = ["Personal Info", "Plan", "Add Ons", "Summary"];
   const { currentStep } = useContextHook();
+  console.log(currentStep);
 
   return (
     <div className="p-2">

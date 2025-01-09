@@ -18,6 +18,19 @@ function StepContext({ children }: Props) {
     localStorage.setItem("step", JSON.stringify(currentStep));
   }, [currentStep]);
 
+  // This useEffect makes sure when the user hits the back button from the browser also the stepper and so the step goes back:
+  useEffect(() => {
+    const historyBack = () => {
+      setCurrentStep((prev) => (prev > 0 ? prev - 1 : prev));
+    };
+
+    window.addEventListener("popstate", historyBack);
+
+    return () => {
+      window.removeEventListener("popstate", historyBack);
+    };
+  }, []);
+
   return (
     <StepProvider.Provider value={{ currentStep, setCurrentStep }}>
       {children}

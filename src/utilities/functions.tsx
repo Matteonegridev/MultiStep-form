@@ -6,6 +6,6 @@ export const prevPage = (
   page: string,
   navigate: ReturnType<typeof useNavigate>,
 ) => {
-  setState((prev) => prev - 1);
+  setState((prev) => (prev > 0 ? prev - 1 : prev));
   navigate(page);
 };

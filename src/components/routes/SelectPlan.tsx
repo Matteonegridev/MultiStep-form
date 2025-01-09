@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
+import { SchemaValues } from "@/schema/zodSchema";
+import { prevPage } from "@/utilities/functions";
 
 function SelectPlan() {
   // const [isYearly, setIsYearly] = useState(false);
@@ -65,70 +67,85 @@ function SelectPlan() {
   const plans = isMonthly ? planData.monthly : planData.yearly;
 
   const onSubmit: SubmitHandler<SchemaValues> = (values) => {
-    form.setValue("Plan", values.plan);
+    form.setValue("plan", values.plan);
     console.log(values);
     navigate("/addons");
     setCurrentStep((prev) => prev + 1);
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>Notify me about...</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className="flex flex-col space-y-1"
-                >
-                  {plans.map((value) => (
-                    <FormItem
-                      key={value.id}
-                      className="flex items-center space-x-3 space-y-0"
-                    >
-                      <FormControl>
-                        <RadioGroupItem value={value.name} />
-                      </FormControl>
-                      <FormLabel className="font-normal">
-                        {value.name} {value.price}
-                      </FormLabel>
-                    </FormItem>
-                  ))}
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="toggle-plan"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-              <div className="space-y-0.5">
-                <FormLabel className="text-base">Monthly</FormLabel>
-              </div>
-              <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  onClick={() => setIsMonthly(!isMonthly)}
-                />
-              </FormControl>
-              <div className="space-y-0.5">
-                <FormLabel className="text-base">Yearly</FormLabel>
-              </div>
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+    <>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-2/3 space-y-6"
+        >
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem className="space-y-3">
+                <FormLabel>Notify me about...</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex flex-col space-y-1"
+                  >
+                    {/* RADIO BUTTON */}
+                    {plans.map((value) => (
+                      <FormItem
+                        key={value.id}
+                        className="flex items-center space-x-3 space-y-0"
+                      >
+                        <FormControl>
+                          <RadioGroupItem value={value.name} />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          {value.name} {value.price}
+                        </FormLabel>
+                      </FormItem>
+                    ))}
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* SWITCH BUTTON */}
+          <FormField
+            control={form.control}
+            name="toggle-plan"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base">Monthly</FormLabel>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    onClick={() => setIsMonthly(!isMonthly)}
+                  />
+                </FormControl>
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base">Yearly</FormLabel>
+                </div>
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+      <div>
+        <button
+          className="bg-primary text-white"
+          onClick={() => prevPage(setCurrentStep, "/", navigate)}
+        >
+          prev
+        </button>
+      </div>
+    </>
   );
 }
 

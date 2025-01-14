@@ -8,11 +8,17 @@ const mobileRegex = (mobile: string) => {
 
 const planValidation = z.object({
   plan: z.object({
-    type: z.enum(["arcade", "advanced", "pro"], {
+    type: z.enum(["Arcade", "Advanced", "Pro"], {
       required_error: "You need to select a notification type.",
     }),
-    yearly: z.boolean({ message: "field required" }).default(false),
-    monthly: z.boolean({ message: "field required" }),
+    sub: z
+      .object({
+        yearly: z.boolean({ message: "field required" }).default(false),
+        monthly: z.boolean({ message: "field required" }).default(true),
+      })
+      .refine((data) => data.yearly !== data.monthly, {
+        message: "You can only select either yearly or monthly, not both.",
+      }),
   }),
 });
 
@@ -50,8 +56,10 @@ export const formDefaultValues: SchemaValues = {
     number: "",
   },
   plan: {
-    type: "advanced",
-    monthly: true,
-    yearly: false,
+    type: "Arcade",
+    sub: {
+      monthly: true,
+      yearly: false,
+    },
   },
 };

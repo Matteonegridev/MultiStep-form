@@ -6,7 +6,7 @@ type Props = {
 };
 
 const initialState = () => {
-  const getStep = localStorage.getItem("step");
+  const getStep = sessionStorage.getItem("step");
   return getStep ? JSON.parse(getStep) : 0;
 };
 
@@ -15,15 +15,16 @@ function StepContext({ children }: Props) {
   const [currentStep, setCurrentStep] = useState<number>(initialState);
 
   useEffect(() => {
-    localStorage.setItem("step", JSON.stringify(currentStep));
+    sessionStorage.setItem("step", JSON.stringify(currentStep));
   }, [currentStep]);
 
   // This useEffect makes sure when the user hits the back button from the browser also the stepper and so the step goes back:
   useEffect(() => {
     const historyBack = () => {
+      // prev > 0 makes sure we dont go below the 0:
       setCurrentStep((prev) => (prev > 0 ? prev - 1 : prev));
     };
-
+    // popstate is a built-it listener:
     window.addEventListener("popstate", historyBack);
 
     return () => {

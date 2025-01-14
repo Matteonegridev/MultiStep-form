@@ -6,16 +6,13 @@ const mobileRegex = (mobile: string) => {
   return phoneRegex.test(mobile);
 };
 
-const switchValidation = z.object({
-  yearly: z.boolean({ message: "field required" }).default(false),
-  monthly: z.boolean({ message: "field required" }),
-});
-
-const radioValidation = z.object({
+const planValidation = z.object({
   plan: z.object({
     type: z.enum(["arcade", "advanced", "pro"], {
       required_error: "You need to select a notification type.",
     }),
+    yearly: z.boolean({ message: "field required" }).default(false),
+    monthly: z.boolean({ message: "field required" }),
   }),
 });
 
@@ -42,8 +39,7 @@ export const zodValidation = z
         .refine((val) => mobileRegex(val), "Invalid Number"),
     }),
   })
-  .and(switchValidation)
-  .and(radioValidation);
+  .and(planValidation);
 
 export type SchemaValues = z.infer<typeof zodValidation>;
 
@@ -55,7 +51,7 @@ export const formDefaultValues: SchemaValues = {
   },
   plan: {
     type: "advanced",
+    monthly: true,
+    yearly: false,
   },
-  monthly: true,
-  yearly: false,
 };

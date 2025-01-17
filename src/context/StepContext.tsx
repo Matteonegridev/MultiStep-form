@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StepProvider } from "./useContextHook";
+import { StepProvider } from "../hooks/useContextHook";
 
 type Props = {
   children: React.ReactNode;
@@ -10,10 +10,10 @@ const initialState = () => {
   return getStep ? JSON.parse(getStep) : 0;
 };
 
-export // Export the context to wrap the app:
 function StepContext({ children }: Props) {
   const [currentStep, setCurrentStep] = useState<number>(initialState);
 
+  // Insert the element into the session storage with useEffect:
   useEffect(() => {
     sessionStorage.setItem("step", JSON.stringify(currentStep));
   }, [currentStep]);

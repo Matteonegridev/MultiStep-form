@@ -6,6 +6,7 @@ import AddOns from "./routes/AddOns";
 import Summary from "./routes/Summary";
 import { FormProvider, useForm } from "react-hook-form";
 import StepContext from "@/context/StepContext";
+import PlansContext from "@/context/PlansContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   formDefaultValues,
@@ -25,18 +26,20 @@ function Form() {
   return (
     <div>
       <StepContext>
-        <FormProvider {...mainFormMethods}>
-          <Stepper />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<PersonalInfo />} />
-              <Route path="/plan" element={<SelectPlan />} />
-              <Route path="/addons" element={<AddOns />} />
-              <Route path="/summary" element={<Summary />} />
-            </Routes>
-            <DevTool control={mainFormMethods.control} />
-          </BrowserRouter>
-        </FormProvider>
+        <PlansContext>
+          <FormProvider {...mainFormMethods}>
+            <Stepper />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<PersonalInfo />} />
+                <Route path="/plan" element={<SelectPlan />} />
+                <Route path="/addons" element={<AddOns />} />
+                <Route path="/summary" element={<Summary />} />
+              </Routes>
+              <DevTool control={mainFormMethods.control} />
+            </BrowserRouter>
+          </FormProvider>
+        </PlansContext>
       </StepContext>
     </div>
   );

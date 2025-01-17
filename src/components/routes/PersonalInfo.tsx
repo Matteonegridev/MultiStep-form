@@ -10,13 +10,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useContextHook } from "@/context/useContextHook";
+import { useContextHook } from "@/hooks/useContextHook";
 import { SchemaValues } from "@/schema/zodSchema";
-
-export type StepsProps = {
-  currentStep: number;
-  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-};
 
 function PersonalInfo() {
   // Hook to store data in the main form from RHF:
@@ -25,13 +20,6 @@ function PersonalInfo() {
 
   // Context Hook:
   const { setCurrentStep } = useContextHook();
-
-  // const name = form.watch("personalInfo.name");
-  // const email = form.watch("personalInfo.email");
-  // const number = form.watch("personalInfo.number");
-
-  // const filledFields =
-  //   name.trim() !== "" && email.trim() !== "" && number.trim() !== "";
 
   // Define the type for the onSubmit function
   const onSubmit: SubmitHandler<SchemaValues> = (values) => {
@@ -89,7 +77,11 @@ function PersonalInfo() {
             )}
           />
           <div>
-            <button className="bg-primary text-white" type="submit">
+            <button
+              onClick={() => console.log("clcked")}
+              className="bg-primary text-white"
+              type="submit"
+            >
               Next
             </button>
           </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useContextHook } from "@/context/useContextHook";
+import { useContextHook } from "@/hooks/useContextHook";
 import { useNavigate } from "react-router";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -59,7 +59,7 @@ function SelectPlan() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-2/3 space-y-6"
         >
-          {/* Radio Group */}
+          {/* RADIO GROUP */}
           <FormField
             control={form.control}
             name="plan.type"
@@ -91,7 +91,7 @@ function SelectPlan() {
               </FormItem>
             )}
           />
-          {/* Switch */}
+          {/* SWITCH INPUT */}
           <FormField
             control={form.control}
             name="plan.sub"

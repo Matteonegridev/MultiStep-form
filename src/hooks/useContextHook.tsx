@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { Dispatch, SetStateAction } from "react";
 
-type ContextProps = {
+export type ContextProps = {
   currentStep: number;
   setCurrentStep: Dispatch<SetStateAction<number>>;
 };

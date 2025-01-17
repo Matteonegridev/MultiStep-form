@@ -77,11 +77,7 @@ function PersonalInfo() {
             )}
           />
           <div>
-            <button
-              onClick={() => console.log("clcked")}
-              className="bg-primary text-white"
-              type="submit"
-            >
+            <button className="bg-primary text-white" type="submit">
               Next
             </button>
           </div>

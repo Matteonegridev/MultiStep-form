@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useContextHook } from "@/hooks/useContextHook";
 import { useNavigate } from "react-router";
 import { SubmitHandler, useFormContext } from "react-hook-form";
@@ -17,10 +17,11 @@ import { SchemaValues } from "@/schema/zodSchema";
 import { prevPage } from "@/utilities/functions";
 
 import { Switch } from "@radix-ui/react-switch";
+import { usePlansContext } from "@/hooks/usePlansContext";
 
 function SelectPlan() {
-  const [isMonthly, setIsMonthly] = useState(true);
   const { setCurrentStep } = useContextHook();
+  const { isMonthly, setIsMonthly } = usePlansContext();
   const navigate = useNavigate();
   const form = useFormContext<SchemaValues>();
 
@@ -40,6 +41,7 @@ function SelectPlan() {
   // Show monthly plans when isMonthly is true, and yearly plans when false
   const plans = isMonthly ? planData.monthly : planData.yearly;
 
+  // useEffect makes sure the toggle is updated when switched plan; it sets that value of the form to true or false when switching:
   useEffect(() => {
     form.setValue("plan.sub.monthly", isMonthly); // Set monthly to true
     form.setValue("plan.sub.yearly", !isMonthly); // Set yearly to false

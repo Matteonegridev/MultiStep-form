@@ -6,7 +6,7 @@ type PropsProvider = {
 };
 
 function PlansContext({ children }: PropsProvider) {
-  const [isMonthly, setIsMonthly] = useState<boolean>(false);
+  const [isMonthly, setIsMonthly] = useState<boolean>(true);
 
   return (
     <PlansProvider.Provider value={{ isMonthly, setIsMonthly }}>

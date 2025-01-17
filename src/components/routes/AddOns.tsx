@@ -8,30 +8,35 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import { useContextHook } from "@/hooks/useContextHook";
+import { usePlansContext } from "@/hooks/usePlansContext";
 import { SchemaValues } from "@/schema/zodSchema";
+import { prevPage } from "@/utilities/functions";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-function AddOns({}: Props) {
+function AddOns() {
   const form = useFormContext<SchemaValues>();
   const navigate = useNavigate();
+  const { isMonthly } = usePlansContext();
+  const { setCurrentStep } = useContextHook();
 
   const addonsData = {
     monthly: [
       {
-        id: 0,
+        id: "online_service",
         type: "Online service",
-        description: "Access to multiplayer gemes",
+        description: "Access to multiplayer games",
         price: "+$1/mo",
       },
       {
-        id: 1,
+        id: "larger_storage",
         type: "Larger storage",
         description: "Extra 1TB of cloud save",
         price: "+2/mo",
       },
       {
-        id: 2,
+        id: "customizable_profile",
         type: "Customizable profile",
         description: "Custom theme on your profile",
         price: "+2/mo",
@@ -39,19 +44,19 @@ function AddOns({}: Props) {
     ],
     yearly: [
       {
-        id: 0,
+        id: "online_service",
         type: "Online service",
-        description: "Access to multiplayer gemes",
+        description: "Access to multiplayer games",
         price: "+10/yr",
       },
       {
-        id: 1,
+        id: "larger_storage",
         type: "Larger storage",
         description: "Extra 1TB of cloud save",
         price: "+20/yr",
       },
       {
-        id: 2,
+        id: "customizable_profile",
         type: "Customizable profile",
         description: "Custom theme on your profile",
         price: "+20/yr",
@@ -59,37 +64,75 @@ function AddOns({}: Props) {
     ],
   };
 
+  const addons = isMonthly ? addonsData.monthly : addonsData.yearly;
+
   const onSubmit: SubmitHandler<SchemaValues> = (values) => {
     form.setValue("addons", values.addons);
     navigate("/summary");
+    console.log(values);
+    setCurrentStep((prev) => prev + 1);
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="mobile"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <FormLabel>
-                  Use different settings for my mobile devices
-                </FormLabel>
-                <FormDescription>
-                  You can manage your mobile notifications in the{" "}
-                </FormDescription>
-              </div>
-            </FormItem>
-          )}
-        />
+        {addons.map((value) => (
+          <FormField
+            key={value.id}
+            control={form.control}
+            name="addons.items"
+            render={({ field }) => (
+              <FormItem
+                key={value.id}
+                className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
+              >
+                <FormControl>
+                  <Checkbox
+                    checked={field.value?.includes(value.id)}
+                    onCheckedChange={(checked) => {
+                      // Get the current value of addons.items from the form state
+                      const currentAddons = form.getValues("addons.items");
+
+                      if (checked) {
+                        // Add the selected add-on id to the array
+                        form.setValue("addons.items", [
+                          ...(currentAddons ?? []),
+                          value.id,
+                        ]);
+                      } else {
+                        // Remove the deselected add-on id from the array
+                        form.setValue(
+                          "addons.items",
+                          currentAddons
+                            ? currentAddons.filter(
+                                (addon) => addon !== value.id,
+                              )
+                            : [],
+                        );
+                      }
+                    }}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel>{value.type}</FormLabel>
+                  <div>
+                    <FormDescription>{value.description}</FormDescription>
+                    <FormLabel>{value.price}</FormLabel>
+                  </div>
+                </div>
+              </FormItem>
+            )}
+          />
+        ))}
+
         <Button type="submit">Submit</Button>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={() => prevPage(setCurrentStep, "/plan", navigate)}
+        >
+          Prev
+        </Button>
       </form>
     </Form>
   );

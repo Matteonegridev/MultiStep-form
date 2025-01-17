@@ -8,26 +8,7 @@ const nameRegex = /^[A-Za-z.-]+(\s*[A-Za-z.-]+)*$/;
 // Regex for phone numbers:
 const mobileRegex = /^[+]{1}(?:[0-9-()/.]\s?){6,15}[0-9]{1}$/;
 
-const planValidation = z.object({
-  type: z.enum(["Arcade", "Advanced", "Pro"], {
-    required_error: "You need to select a notification type.",
-  }),
-  sub: z
-    .union([
-      z.object({ yearly: z.literal(true), monthly: z.literal(false) }),
-      z.object({ yearly: z.literal(false), monthly: z.literal(true) }),
-    ])
-    .refine((data) => data.yearly !== data.monthly, {
-      message: "You can only select either yearly or monthly, not both.",
-    }),
-});
-
-const addonsValidation = z.object({
-  items: z
-    .array(z.string())
-    .min(1, { message: "You have to select at least one item." }),
-});
-
+// Step 1:
 const personalInfoValidation = z.object({
   name: z
     .string()
@@ -46,6 +27,26 @@ const personalInfoValidation = z.object({
     .regex(mobileRegex, "Invalid Number"),
 });
 
+// Step 2:
+const planValidation = z.object({
+  type: z.enum(["Arcade", "Advanced", "Pro"], {
+    required_error: "You need to select a notification type.",
+  }),
+  sub: z
+    .union([
+      z.object({ yearly: z.literal(true), monthly: z.literal(false) }),
+      z.object({ yearly: z.literal(false), monthly: z.literal(true) }),
+    ])
+    .refine((data) => data.yearly !== data.monthly, {
+      message: "You can only select either yearly or monthly, not both.",
+    }),
+});
+
+// Step 3:
+const addonsValidation = z.object({
+  items: z.array(z.string()).optional(),
+});
+
 // Define the whole Schema creating here the objects containing the info:
 export const zodValidation = z
   .object({
@@ -56,6 +57,7 @@ export const zodValidation = z
 
 export type SchemaValues = z.infer<typeof zodValidation>;
 
+// Schema to export:
 export const formDefaultValues: SchemaValues = {
   personalInfo: {
     name: "",

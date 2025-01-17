@@ -5,7 +5,9 @@ type PlansContextProps = {
   setIsMonthly: React.Dispatch<SetStateAction<boolean>>;
 };
 
-export const PlansProvider = createContext<PlansContextProps | null>(null);
+export const PlansProvider = createContext<PlansContextProps | undefined>(
+  undefined,
+);
 
 export const usePlansContext = () => {
   const context = useContext(PlansProvider);

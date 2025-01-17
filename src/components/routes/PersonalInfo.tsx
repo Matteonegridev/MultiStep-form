@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useContextHook } from "@/hooks/useContextHook";
+import { useContextHook } from "@/hooks/useStepContext";
 import { SchemaValues } from "@/schema/zodSchema";
 
 function PersonalInfo() {

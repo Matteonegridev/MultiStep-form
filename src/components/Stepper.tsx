@@ -1,4 +1,4 @@
-import { useContextHook } from "@/hooks/useContextHook";
+import { useContextHook } from "@/hooks/useStepContext";
 
 function Stepper() {
   const steps = ["Personal Info", "Plan", "Add Ons", "Summary"];

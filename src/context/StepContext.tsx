@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StepProvider } from "../hooks/useContextHook";
+import { StepProvider } from "../hooks/useStepContext";
 
 type Props = {
   children: React.ReactNode;

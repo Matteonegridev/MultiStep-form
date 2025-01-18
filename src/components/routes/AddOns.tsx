@@ -14,55 +14,13 @@ import { SchemaValues } from "@/schema/zodSchema";
 import { prevPage } from "@/utilities/functions";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { addonsData } from "@/utilities/addonsData";
 
 function AddOns() {
   const form = useFormContext<SchemaValues>();
   const navigate = useNavigate();
   const { isMonthly } = usePlansContext();
   const { setCurrentStep } = useContextHook();
-
-  const addonsData = {
-    monthly: [
-      {
-        id: "online_service",
-        type: "Online service",
-        description: "Access to multiplayer games",
-        price: "+$1/mo",
-      },
-      {
-        id: "larger_storage",
-        type: "Larger storage",
-        description: "Extra 1TB of cloud save",
-        price: "+2/mo",
-      },
-      {
-        id: "customizable_profile",
-        type: "Customizable profile",
-        description: "Custom theme on your profile",
-        price: "+2/mo",
-      },
-    ],
-    yearly: [
-      {
-        id: "online_service",
-        type: "Online service",
-        description: "Access to multiplayer games",
-        price: "+10/yr",
-      },
-      {
-        id: "larger_storage",
-        type: "Larger storage",
-        description: "Extra 1TB of cloud save",
-        price: "+20/yr",
-      },
-      {
-        id: "customizable_profile",
-        type: "Customizable profile",
-        description: "Custom theme on your profile",
-        price: "+20/yr",
-      },
-    ],
-  };
 
   const addons = isMonthly ? addonsData.monthly : addonsData.yearly;
 

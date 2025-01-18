@@ -15,28 +15,15 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { SchemaValues } from "@/schema/zodSchema";
 import { prevPage } from "@/utilities/functions";
-
 import { Switch } from "@radix-ui/react-switch";
 import { usePlansContext } from "@/hooks/usePlansContext";
+import { planData } from "@/utilities/selectPlanData";
 
 function SelectPlan() {
   const { setCurrentStep } = useContextHook();
   const { isMonthly, setIsMonthly } = usePlansContext();
   const navigate = useNavigate();
   const form = useFormContext<SchemaValues>();
-
-  const planData = {
-    monthly: [
-      { id: 0, name: "Arcade", price: "$9/mo" },
-      { id: 1, name: "Advanced", price: "$12/mo" },
-      { id: 2, name: "Pro", price: "$15/mo" },
-    ],
-    yearly: [
-      { id: 0, name: "Arcade", price: "$90/yr", bonus: "2 months free" },
-      { id: 1, name: "Advanced", price: "$120/yr", bonus: "2 months free" },
-      { id: 2, name: "Pro", price: "$150/yr", bonus: "2 months free" },
-    ],
-  };
 
   // Show monthly plans when isMonthly is true, and yearly plans when false
   const plans = isMonthly ? planData.monthly : planData.yearly;

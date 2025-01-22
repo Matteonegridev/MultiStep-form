@@ -14,10 +14,10 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { SchemaValues } from "@/schema/zodSchema";
-import { prevPage } from "@/utilities/functions";
+import { prevPage } from "@/functions/functions";
 import { Switch } from "@radix-ui/react-switch";
 import { usePlansContext } from "@/hooks/usePlansContext";
-import { planData } from "@/utilities/selectPlanData";
+import { planData } from "@/functions/selectPlanData";
 
 function SelectPlan() {
   const { setCurrentStep } = useContextHook();

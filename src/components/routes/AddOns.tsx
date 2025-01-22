@@ -11,10 +11,10 @@ import {
 import { useContextHook } from "@/hooks/useStepContext";
 import { usePlansContext } from "@/hooks/usePlansContext";
 import { SchemaValues } from "@/schema/zodSchema";
-import { prevPage } from "@/utilities/functions";
+import { prevPage } from "@/functions/functions";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { addonsData } from "@/utilities/addonsData";
+import { addonsData } from "@/functions/addonsData";
 
 function AddOns() {
   const form = useFormContext<SchemaValues>();

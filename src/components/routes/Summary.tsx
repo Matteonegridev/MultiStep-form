@@ -6,9 +6,9 @@ import { SubmitHandler, useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { Button } from "../ui/button";
-import { handleAddonsPrice } from "@/utilities/addonsData";
-import { handlePlanPrice } from "@/utilities/selectPlanData";
-import { prevPage } from "@/utilities/functions";
+import { handleAddonsPrice } from "@/functions/addonsData";
+import { handlePlanPrice } from "@/functions/selectPlanData";
+import { prevPage } from "@/functions/functions";
 
 function Summary() {
   const form = useFormContext<SchemaValues>();
@@ -45,6 +45,7 @@ function Summary() {
     }
   };
 
+  // Get array of addons
   const addonsInfo = isMonthly
     ? handleAddonsPrice(fullData.addons.items as string[], true)
     : handleAddonsPrice(fullData.addons.items as string[], false);

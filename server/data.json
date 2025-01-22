@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "personalInfo": {
+      "name": "ffff",
+      "email": "matt@gmail.com",
+      "number": "+1 223 333 33333"
+    },
+    "plan": {
+      "type": "Pro",
+      "sub": {
+        "yearly": true,
+        "monthly": false
+      }
+    },
+    "addons": {
+      "items": [
+        "online_service",
+        "larger_storage",
+        "customizable_profile"
+      ]
+    }
+  }
+]

@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Ubuntu Regular";
+  src: url("/assets/fonts/Ubuntu-Regular.ttf") format("truetype");
+  font-display: true;
+}
+@font-face {
+  font-family: "Ubuntu Medium";
+  src: url("/assets/fonts/Ubuntu-Medium.ttf") format("truetype");
+  font-display: true;
+}
+@font-face {
+  font-family: "Ubuntu Bold";
+  src: url("/assets/fonts/Ubuntu-Bold.ttf") format("truetype");
+  font-display: true;
+}
+
 @layer base {
   :root {
     --marine-blue: hsl(213, 96%, 18%);

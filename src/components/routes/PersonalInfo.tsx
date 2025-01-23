@@ -43,8 +43,10 @@ function PersonalInfo() {
             className="relative z-10 m-auto mt-20 w-11/12 space-y-4 rounded-lg bg-white px-4 py-4 shadow-lg"
           >
             <div className="w-4/5">
-              <h1 className="pb-2 font-bold ~text-2xl/4xl">Personal Info</h1>
-              <p className="text-coolGray">
+              <h1 className="font-UbuntuBold pb-2 ~text-2xl/4xl">
+                Personal Info
+              </h1>
+              <p className="font-UbuntuRegular text-coolGray">
                 Please provide you name, email and phone number.
               </p>
             </div>
@@ -54,11 +56,13 @@ function PersonalInfo() {
               name="personalInfo.name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <div className="flex items-center justify-between">
+                    <FormLabel>Name</FormLabel>
+                    <FormMessage />
+                  </div>
                   <FormControl>
                     <Input placeholder="e.g. Stephen King" {...field} />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -68,15 +72,16 @@ function PersonalInfo() {
               name="personalInfo.email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <div className="flex items-center justify-between">
+                    <FormLabel>Email</FormLabel>
+                    <FormMessage />
+                  </div>
                   <FormControl>
                     <Input
                       placeholder="e.g. stephenking@lorem.com"
                       {...field}
                     />
                   </FormControl>
-
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -86,25 +91,27 @@ function PersonalInfo() {
               name="personalInfo.number"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Number</FormLabel>
+                  <div className="flex items-center justify-between">
+                    <FormLabel>Number</FormLabel>
+                    <FormMessage />
+                  </div>
                   <FormControl>
                     <Input placeholder="e.g. +1 234 567 890" {...field} />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
+            <div className="py-2">
+              <button
+                className="rounded-sm bg-primary px-[1em] py-[.5em] font-semibold text-white"
+                type="submit"
+              >
+                Next Step
+              </button>
+            </div>
           </form>
         </Form>
       </section>
-      <div className="absolute bottom-5 right-4">
-        <button
-          className="rounded-sm bg-primary px-[1em] py-[.5em] font-semibold text-white"
-          type="submit"
-        >
-          Next Step
-        </button>
-      </div>
     </>
   );
 }

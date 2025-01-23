@@ -27,6 +27,11 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontFamily: {
+        UbuntuRegular: ["Ubuntu Regular"],
+        UbuntuMedium: ["Ubuntu Medium"],
+        UbuntuBold: ["Ubuntu Bold"],
+      },
     },
   },
   plugins: [

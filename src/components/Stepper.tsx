@@ -1,16 +1,16 @@
 import { useContextHook } from "@/hooks/useStepContext";
 
 function Stepper() {
-  const steps = ["Personal Info", "Plan", "Add Ons", "Summary"];
+  const steps = ["1", "2", "3", "4"];
   const { currentStep } = useContextHook();
   console.log(currentStep);
 
   return (
-    <div className="p-2">
-      <ul className="flex justify-center gap-4">
+    <div className="relative top-6 z-10">
+      <ul className="flex justify-center gap-6">
         {steps.map((steps, i) => (
           <li
-            className={`${currentStep !== i ? "text-secondary" : "font-bold"}`}
+            className={`${currentStep !== i ? "border border-white bg-transparent text-white" : "border border-tertiary bg-tertiary text-black"} flex h-9 w-9 items-center justify-center rounded-full font-bold`}
             key={i}
           >
             {steps}

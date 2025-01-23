@@ -38,5 +38,22 @@
         "customizable_profile"
       ]
     }
+  },
+  {
+    "personalInfo": {
+      "name": "ffff",
+      "email": "matt@gmail.com",
+      "number": "+1 223 333 33333"
+    },
+    "plan": {
+      "type": "Arcade",
+      "sub": {
+        "yearly": false,
+        "monthly": true
+      }
+    },
+    "addons": {
+      "items": []
+    }
   }
 ]

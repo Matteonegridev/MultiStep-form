@@ -15,6 +15,8 @@ import { prevPage } from "@/functions/functions";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { addonsData } from "@/functions/addonsData";
+import mobileSideBar from "/assets/images/bg-sidebar-mobile.svg";
+import SvgComp from "@/utilities/SvgComp";
 
 function AddOns() {
   const form = useFormContext<SchemaValues>();
@@ -32,67 +34,73 @@ function AddOns() {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {addons.map((value) => (
-          <FormField
-            key={value.id}
-            control={form.control}
-            name="addons.items"
-            render={({ field }) => (
-              <FormItem
-                key={value.id}
-                className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
-              >
-                <FormControl>
-                  <Checkbox
-                    checked={field.value?.includes(value.id)}
-                    onCheckedChange={(checked) => {
-                      // Get the current value of addons.items from the form state
-                      const currentAddons = form.getValues("addons.items");
+    <section>
+      <div className="absolute left-0 top-0">
+        <SvgComp alt="mobile sidebar" src={mobileSideBar} width={500} />
+      </div>
 
-                      if (checked) {
-                        // Add the selected add-on id to the array
-                        form.setValue("addons.items", [
-                          ...(currentAddons ?? []),
-                          value.id,
-                        ]);
-                      } else {
-                        // Remove the deselected add-on id from the array
-                        form.setValue(
-                          "addons.items",
-                          currentAddons
-                            ? currentAddons.filter(
-                                (addon) => addon !== value.id,
-                              )
-                            : [],
-                        );
-                      }
-                    }}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>{value.type}</FormLabel>
-                  <div>
-                    <FormDescription>{value.description}</FormDescription>
-                    <FormLabel>{value.price}</FormLabel>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          {addons.map((value) => (
+            <FormField
+              key={value.id}
+              control={form.control}
+              name="addons.items"
+              render={({ field }) => (
+                <FormItem
+                  key={value.id}
+                  className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
+                >
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value?.includes(value.id)}
+                      onCheckedChange={(checked) => {
+                        // Get the current value of addons.items from the form state
+                        const currentAddons = form.getValues("addons.items");
+
+                        if (checked) {
+                          // Add the selected add-on id to the array
+                          form.setValue("addons.items", [
+                            ...(currentAddons ?? []),
+                            value.id,
+                          ]);
+                        } else {
+                          // Remove the deselected add-on id from the array
+                          form.setValue(
+                            "addons.items",
+                            currentAddons
+                              ? currentAddons.filter(
+                                  (addon) => addon !== value.id,
+                                )
+                              : [],
+                          );
+                        }
+                      }}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>{value.type}</FormLabel>
+                    <div>
+                      <FormDescription>{value.description}</FormDescription>
+                      <FormLabel>{value.price}</FormLabel>
+                    </div>
                   </div>
-                </div>
-              </FormItem>
-            )}
-          />
-        ))}
+                </FormItem>
+              )}
+            />
+          ))}
 
-        <Button type="submit">Submit</Button>
-        <Button
-          type="button"
-          variant="secondary"
-          onClick={() => prevPage(setCurrentStep, "/plan", navigate)}
-        >
-          Prev
-        </Button>
-      </form>
-    </Form>
+          <Button type="submit">Submit</Button>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => prevPage(setCurrentStep, "/plan", navigate)}
+          >
+            Prev
+          </Button>
+        </form>
+      </Form>
+    </section>
   );
 }
 

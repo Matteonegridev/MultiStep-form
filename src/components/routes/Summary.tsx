@@ -9,6 +9,8 @@ import { Button } from "../ui/button";
 import { handleAddonsPrice } from "@/functions/addonsData";
 import { handlePlanPrice } from "@/functions/selectPlanData";
 import { prevPage } from "@/functions/functions";
+import SvgComp from "@/utilities/SvgComp";
+import mobileSideBar from "/assets/images/bg-sidebar-mobile.svg";
 
 function Summary() {
   const form = useFormContext<SchemaValues>();
@@ -68,48 +70,54 @@ function Summary() {
     : parseInt(plansInfo.replace(/[^\d]/g, ""));
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
-      <div className="overflow-auto rounded-md bg-gray-100 p-4 text-sm text-gray-800">
-        <>
-          {/* PLAN AND ADDONS SECTION*/}
-          <div className="flex items-center justify-between border-b-2 border-lightGray pb-2">
-            <p className="font-bold text-primary">
-              {fullData.plan.type} <span>(Monthly)</span>
+    <section>
+      <div className="absolute left-0 top-0">
+        <SvgComp alt="mobile sidebar" src={mobileSideBar} width={500} />
+      </div>
+
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="overflow-auto rounded-md bg-gray-100 p-4 text-sm text-gray-800">
+          <>
+            {/* PLAN AND ADDONS SECTION*/}
+            <div className="flex items-center justify-between border-b-2 border-lightGray pb-2">
+              <p className="font-bold text-primary">
+                {fullData.plan.type} <span>(Monthly)</span>
+              </p>
+              <p className="font-bold text-primary">{plansInfo}</p>
+            </div>
+            {fullData.addons.items && fullData.addons.items.length > 0 ? (
+              addonsInfo?.map((items, i) => (
+                <div key={i} className="flex justify-between pt-2">
+                  <p className="font-semibold text-coolGray">{items.type}</p>
+                  <p>{items.price}</p>
+                </div>
+              ))
+            ) : (
+              <p className="font-semibold text-coolGray">No add ons selected</p>
+            )}
+          </>
+          {/* TOTAL */}
+          <div className="flex items-center justify-between">
+            <p className="font-semibold text-coolGray">
+              Total ({isMonthly ? "per month" : "per year"})
             </p>
-            <p className="font-bold text-primary">{plansInfo}</p>
+            <p className="font-bold text-secondary">
+              ${total}
+              {isMonthly ? "/mo" : "/yr"}
+            </p>
           </div>
-          {fullData.addons.items && fullData.addons.items.length > 0 ? (
-            addonsInfo?.map((items, i) => (
-              <div key={i} className="flex justify-between pt-2">
-                <p className="font-semibold text-coolGray">{items.type}</p>
-                <p>{items.price}</p>
-              </div>
-            ))
-          ) : (
-            <p className="font-semibold text-coolGray">No add ons selected</p>
-          )}
-        </>
-        {/* TOTAL */}
-        <div className="flex items-center justify-between">
-          <p className="font-semibold text-coolGray">
-            Total ({isMonthly ? "per month" : "per year"})
-          </p>
-          <p className="font-bold text-secondary">
-            ${total}
-            {isMonthly ? "/mo" : "/yr"}
-          </p>
         </div>
-      </div>
-      <Button type="submit">Submit</Button>
-      <div>
-        <Button
-          variant="secondary"
-          onClick={() => prevPage(setCurrentStep, "/addons", navigate)}
-        >
-          Prev
-        </Button>
-      </div>
-    </form>
+        <Button type="submit">Submit</Button>
+        <div>
+          <Button
+            variant="secondary"
+            onClick={() => prevPage(setCurrentStep, "/addons", navigate)}
+          >
+            Prev
+          </Button>
+        </div>
+      </form>
+    </section>
   );
 }
 

@@ -4,11 +4,11 @@ import mobileSideBar from "/assets/images/bg-sidebar-mobile.svg";
 
 function ThankYou() {
   return (
-    <section className="w-full">
-      <div className="absolute left-0 top-0 -z-10">
+    <section className="min-h-[100dvh] w-full bg-lightGray">
+      <div className="absolute left-0 top-0">
         <SvgComp alt="mobile sidebar" src={mobileSideBar} width={500} />
       </div>
-      <div className="p m-auto mt-20 flex w-11/12 flex-col items-center rounded-lg bg-white px-3 py-20 shadow-lg">
+      <div className="relative z-10 m-auto mt-20 flex w-11/12 flex-col items-center rounded-lg bg-white px-3 py-20 shadow-lg">
         <div className="">
           <SvgComp alt="Thank you icon" src={thankYou} width={60} height={60} />
         </div>

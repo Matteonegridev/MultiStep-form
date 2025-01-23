@@ -18,6 +18,8 @@ import { prevPage } from "@/functions/functions";
 import { Switch } from "@radix-ui/react-switch";
 import { usePlansContext } from "@/hooks/usePlansContext";
 import { planData } from "@/functions/selectPlanData";
+import SvgComp from "@/utilities/SvgComp";
+import mobileSideBar from "/assets/images/bg-sidebar-mobile.svg";
 
 function SelectPlan() {
   const { setCurrentStep } = useContextHook();
@@ -42,7 +44,10 @@ function SelectPlan() {
   };
 
   return (
-    <>
+    <section>
+      <div className="absolute left-0 top-0">
+        <SvgComp alt="mobile sidebar" src={mobileSideBar} width={500} />
+      </div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -121,7 +126,7 @@ function SelectPlan() {
           Prev
         </Button>
       </div>
-    </>
+    </section>
   );
 }
 

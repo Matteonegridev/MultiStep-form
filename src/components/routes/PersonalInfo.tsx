@@ -33,17 +33,17 @@ function PersonalInfo() {
 
   return (
     <>
-      <section className="h-[70dvh] bg-lightGray">
-        <div className="absolute left-0 top-0">
-          <SvgComp alt="mobile sidebar" src={mobileSideBar} width={500} />
-        </div>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="relative z-10 m-auto mt-20 w-11/12 space-y-4 rounded-lg bg-white px-4 py-4 shadow-lg"
-          >
+      <div className="absolute left-0 top-0">
+        <SvgComp alt="mobile sidebar" src={mobileSideBar} width={500} />
+      </div>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="h-[70dvh] bg-lightGray"
+        >
+          <div className="relative z-10 m-auto mt-20 w-11/12 space-y-4 rounded-lg bg-white px-5 py-8 shadow-lg">
             <div className="w-4/5">
-              <h1 className="font-UbuntuBold pb-2 ~text-2xl/4xl">
+              <h1 className="pb-2 font-UbuntuBold ~text-2xl/4xl">
                 Personal Info
               </h1>
               <p className="font-UbuntuRegular text-coolGray">
@@ -101,17 +101,17 @@ function PersonalInfo() {
                 </FormItem>
               )}
             />
-            <div className="py-2">
-              <button
-                className="rounded-sm bg-primary px-[1em] py-[.5em] font-semibold text-white"
-                type="submit"
-              >
-                Next Step
-              </button>
-            </div>
-          </form>
-        </Form>
-      </section>
+          </div>
+          <div className="absolute bottom-5 right-4">
+            <button
+              className="rounded-sm bg-primary px-[1em] py-[.5em] font-semibold text-white"
+              type="submit"
+            >
+              Next Step
+            </button>
+          </div>
+        </form>
+      </Form>
     </>
   );
 }

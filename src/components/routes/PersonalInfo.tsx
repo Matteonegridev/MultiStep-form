@@ -39,7 +39,7 @@ function PersonalInfo() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="h-[70dvh] bg-lightGray"
+          className="h-[70dvh] bg-magnolia"
         >
           <div className="relative z-10 m-auto mt-16 w-11/12 space-y-4 rounded-lg bg-white px-5 py-8 shadow-lg">
             <div className="w-4/5">

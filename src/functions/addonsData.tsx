@@ -47,7 +47,7 @@ export const handleAddonsPrice = (
 ): { type: string; price: string }[] | null => {
   const addonsType = isMonthly ? addonsData.monthly : addonsData.yearly;
 
-  // data is the array we pass in the function => fullData.addons.items. We want to map this array going thru each item in it. After we want to find the id cointained in addonsType that matches the data value. Once is found we wanna get its price and type or null. We will have showData as an array of objects, with possible nulls in it:
+  // data is the array we pass in the function => fullData.addons.items. We want to map this array going thru each item in it. Then, we want to find the id cointained in addonsType that matches the data value. Once is found we wanna get its price and type or null. We will store in showData as an array of objects, with possible nulls in it:
   const showData = data.map((values) => {
     const addonFound = addonsType.find(({ id }) => id === values);
     return addonFound

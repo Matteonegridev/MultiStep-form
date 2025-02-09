@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import PersonalInfo from "./routes/PersonalInfo";
 import SelectPlan from "./routes/SelectPlan";
-import Stepper from "./Stepper";
 import AddOns from "./routes/AddOns";
 import Summary from "./routes/Summary";
 import { FormProvider, useForm } from "react-hook-form";
@@ -29,7 +28,6 @@ function Form() {
       <StepContext>
         <PlansContext>
           <FormProvider {...mainFormMethods}>
-            <Stepper />
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<PersonalInfo />} />

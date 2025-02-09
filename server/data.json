@@ -55,5 +55,26 @@
     "addons": {
       "items": []
     }
+  },
+  {
+    "personalInfo": {
+      "name": "ffff",
+      "email": "matt@gmail.com",
+      "number": "+1 123 123 123"
+    },
+    "plan": {
+      "type": "Pro",
+      "sub": {
+        "yearly": false,
+        "monthly": true
+      }
+    },
+    "addons": {
+      "items": [
+        "customizable_profile",
+        "online_service",
+        "larger_storage"
+      ]
+    }
   }
 ]

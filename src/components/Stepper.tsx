@@ -15,7 +15,7 @@ function Stepper() {
       <ul className="flex justify-center gap-6">
         {steps.map((steps) => (
           <li
-            className={`${currentStep !== steps.id ? "border border-white bg-transparent text-white" : "border border-tertiary bg-tertiary text-black"} flex h-9 w-9 items-center justify-center rounded-full font-bold`}
+            className={`${currentStep !== steps.id ? "border border-white bg-transparent text-white" : "border border-tertiary bg-quaternary text-black"} flex h-9 w-9 items-center justify-center rounded-full font-UbuntuBold`}
             key={steps.id}
           >
             {steps.step}

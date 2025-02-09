@@ -4,7 +4,7 @@ import mobileSideBar from "/assets/images/bg-sidebar-mobile.svg";
 
 function ThankYou() {
   return (
-    <section className="min-h-[100dvh] w-full bg-lightGray">
+    <section className="min-h-[100dvh] w-full bg-magnolia">
       <div className="absolute left-0 top-0">
         <SvgComp alt="mobile sidebar" src={mobileSideBar} width={500} />
       </div>

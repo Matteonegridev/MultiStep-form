@@ -75,30 +75,64 @@ function Summary() {
         <SvgComp alt="mobile sidebar" src={mobileSideBar} width={500} />
       </div>
 
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="overflow-auto rounded-md bg-gray-100 p-4 text-sm text-gray-800">
-          <>
-            {/* PLAN AND ADDONS SECTION*/}
-            <div className="flex items-center justify-between border-b-2 border-lightGray pb-2">
-              <p className="font-bold text-primary">
-                {fullData.plan.type} <span>(Monthly)</span>
-              </p>
-              <p className="font-bold text-primary">{plansInfo}</p>
-            </div>
-            {fullData.addons.items && fullData.addons.items.length > 0 ? (
-              addonsInfo?.map((items, i) => (
-                <div key={i} className="flex justify-between pt-2">
-                  <p className="font-semibold text-coolGray">{items.type}</p>
-                  <p>{items.price}</p>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="h-[70dvh] bg-magnolia"
+      >
+        <div className="relative z-10 m-auto mt-16 w-11/12 space-y-4 rounded-lg bg-white px-5 py-5 shadow-lg">
+          <div className="w-4/5">
+            <h1 className="pb-2 font-UbuntuBold text-primary ~text-2xl/4xl">
+              Finishing Up
+            </h1>
+            <p className="w-[35ch] font-UbuntuRegular text-coolGray">
+              Double-check everything looks OK before continuing.
+            </p>
+          </div>
+          <div className="overflow-auto rounded-md bg-alabaster p-4 text-sm text-gray-800">
+            <>
+              {/* PLAN AND ADDONS SECTION*/}
+              <div className="flex items-center justify-between border-b-2 border-lightGray pb-2">
+                <div>
+                  <p className="~text-xs/ font-UbuntuBold text-primary">
+                    {fullData.plan.type} <span>(Monthly)</span>
+                  </p>
+
+                  <button
+                    className="text-coolGray underline"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentStep((prev) => prev - 2);
+                      navigate("/plan");
+                    }}
+                  >
+                    Change
+                  </button>
                 </div>
-              ))
-            ) : (
-              <p className="font-semibold text-coolGray">No add ons selected</p>
-            )}
-          </>
+                <p className="font-bold text-primary">{plansInfo}</p>
+              </div>
+              <div className="flex flex-col gap-4 pt-4">
+                {fullData.addons.items && fullData.addons.items.length > 0 ? (
+                  addonsInfo?.map((items, i) => (
+                    <div key={i} className="flex items-center justify-between">
+                      <p className="font-UbuntuRegular text-coolGray ~text-xs/base">
+                        {items.type}
+                      </p>
+                      <p className="font-UbuntuMedium text-secondary ~text-xs/base">
+                        {items.price}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="font-semibold text-coolGray">
+                    No add ons selected
+                  </p>
+                )}
+              </div>
+            </>
+          </div>
           {/* TOTAL */}
-          <div className="flex items-center justify-between">
-            <p className="font-semibold text-coolGray">
+          <div className="flex items-center justify-between px-3">
+            <p className="font-UbuntuRegular text-coolGray ~text-xs/base">
               Total ({isMonthly ? "per month" : "per year"})
             </p>
             <p className="font-bold text-secondary">
@@ -107,15 +141,22 @@ function Summary() {
             </p>
           </div>
         </div>
-        <Button type="submit">Submit</Button>
-        <div>
+        <div className="absolute bottom-5 right-4">
           <Button
-            variant="secondary"
+            className="rounded-sm bg-primary px-[1em] py-[.5em] font-semibold text-white"
+            type="submit"
+          >
+            Next Step
+          </Button>
+        </div>
+        <div className="absolute bottom-5 left-4">
+          <Button
+            className="rounded-sm bg-transparent px-[1em] py-[.5em] font-semibold text-coolGray"
             onClick={(e) => {
-              prevPage(setCurrentStep, "/addons", navigate, e);
+              prevPage(setCurrentStep, "/plan", navigate, e);
             }}
           >
-            Prev
+            Go Back
           </Button>
         </div>
       </form>

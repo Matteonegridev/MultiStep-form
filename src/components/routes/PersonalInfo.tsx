@@ -138,16 +138,28 @@ function PersonalInfo() {
                   </FormItem>
                 )}
               />
+              {!isMobile && (
+                <div className="place-self-end py-8">
+                  <button
+                    className="rounded-sm bg-primary px-[1em] py-[.5em] font-semibold text-white"
+                    type="submit"
+                  >
+                    Next Step
+                  </button>
+                </div>
+              )}
             </div>
           </div>
-          <div className="absolute bottom-5 right-5 md:bottom-24 md:right-64 md:z-10">
-            <button
-              className="rounded-sm bg-primary px-[1em] py-[.5em] font-semibold text-white"
-              type="submit"
-            >
-              Next Step
-            </button>
-          </div>
+          {isMobile && (
+            <div className="absolute bottom-5 right-5">
+              <button
+                className="rounded-sm bg-primary px-[1em] py-[.5em] font-semibold text-white"
+                type="submit"
+              >
+                Next Step
+              </button>
+            </div>
+          )}
         </form>
       </Form>
     </section>

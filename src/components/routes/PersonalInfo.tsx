@@ -48,19 +48,24 @@ function PersonalInfo() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="h-[70dvh] bg-magnolia md:h-full"
+          className="h-[calc(90dvh-10px)] bg-magnolia md:h-screen"
         >
           {isMobile && (
-            <div className="absolute left-0 top-0">
-              <SvgComp alt="mobile sidebar" src={mobileSideBar} width={500} />
-            </div>
+            <>
+              <div className="absolute left-0 top-0">
+                <SvgComp alt="mobile sidebar" src={mobileSideBar} width={500} />
+              </div>
+              <Stepper />
+            </>
           )}
-          {/* <Stepper /> */}
           <div className="relative z-10 m-auto mt-16 w-11/12 rounded-lg bg-white px-5 py-8 shadow-lg md:grid md:w-4/5 md:grid-cols-[300px_1fr] md:px-3 md:py-4 xl:w-3/4">
             {!isMobile && (
-              <div className="">
-                <SvgComp alt="desktop sidebar" src={desktopSideBar} />
-              </div>
+              <>
+                <div className="">
+                  <SvgComp alt="desktop sidebar" src={desktopSideBar} />
+                </div>
+                <Stepper />
+              </>
             )}
 
             <div className="space-y-7 md:mx-auto md:w-5/6 md:pt-10 xl:w-2/3">

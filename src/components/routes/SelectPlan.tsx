@@ -159,7 +159,9 @@ function SelectPlan() {
           <div className="absolute bottom-5 left-4">
             <Button
               className="rounded-sm bg-transparent px-[1em] py-[.5em] font-semibold text-coolGray"
-              onClick={() => prevPage(setCurrentStep, "/", navigate)}
+              onClick={(e) => {
+                prevPage(setCurrentStep, "/", navigate, e);
+              }}
             >
               Go Back
             </Button>

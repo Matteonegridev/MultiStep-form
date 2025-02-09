@@ -58,63 +58,58 @@ function AddOns() {
                 key={value.id}
                 control={form.control}
                 name="addons.items"
-                render={({ field }) => {
-                  // check is the fiel.value (array of string) , includes the actual value id
-                  const isChecked = field.value?.includes(value.id);
+                render={({ field }) => (
+                  <FormItem
+                    key={value.id}
+                    className={`grid grid-cols-[35px_1fr] items-center rounded-lg border px-3 py-2 transition-colors ${
+                      field.value?.includes(value.id)
+                        ? "border-secondary bg-magnolia"
+                        : ""
+                    }`}
+                  >
+                    <FormControl>
+                      <Checkbox
+                        className="grid h-[1.25em] w-[1.25em] appearance-none place-content-center border border-secondary bg-white text-secondary data-[state=checked]:bg-secondary"
+                        // pass the variable into the checked state:
+                        checked={field.value?.includes(value.id)}
+                        onCheckedChange={(checked) => {
+                          const currentAddons = form.getValues("addons.items");
 
-                  // You can return the component here after placed a variable:
-                  return (
-                    <FormItem
-                      key={value.id}
-                      className={`grid grid-cols-[35px_1fr] items-center rounded-lg border px-3 py-2 transition-colors ${
-                        isChecked ? "border-secondary bg-magnolia" : ""
-                      }`}
-                    >
-                      <FormControl>
-                        <Checkbox
-                          className="grid h-[1.25em] w-[1.25em] appearance-none place-content-center border border-secondary bg-white text-secondary data-[state=checked]:bg-secondary"
-                          // pass the variable into the checked state:
-                          checked={isChecked}
-                          onCheckedChange={(checked) => {
-                            const currentAddons =
-                              form.getValues("addons.items");
-
-                            if (checked) {
-                              // Add the selected add-on id to the array
-                              form.setValue("addons.items", [
-                                ...(currentAddons ?? []),
-                                value.id,
-                              ]);
-                            } else {
-                              // Remove the deselected add-on id from the array
-                              form.setValue(
-                                "addons.items",
-                                currentAddons
-                                  ? currentAddons.filter(
-                                      (addon) => addon !== value.id,
-                                    )
-                                  : [],
-                              );
-                            }
-                          }}
-                        />
-                      </FormControl>
-                      <div className="flex justify-between space-y-1 leading-none">
-                        <div className="space-y-1">
-                          <FormLabel className="font-UbuntuBold text-primary ~text-sm/lg">
-                            {value.type}
-                          </FormLabel>
-                          <FormDescription className="font-UbuntuRegular text-coolGray ~text-xs/base">
-                            {value.description}
-                          </FormDescription>
-                        </div>
-                        <FormLabel className="~text-xs/base">
-                          {value.price}
+                          if (checked) {
+                            // Add the selected add-on id to the array
+                            form.setValue("addons.items", [
+                              ...(currentAddons ?? []),
+                              value.id,
+                            ]);
+                          } else {
+                            // Remove the deselected add-on id from the array
+                            form.setValue(
+                              "addons.items",
+                              currentAddons
+                                ? currentAddons.filter(
+                                    (addon) => addon !== value.id,
+                                  )
+                                : [],
+                            );
+                          }
+                        }}
+                      />
+                    </FormControl>
+                    <div className="flex justify-between space-y-1 leading-none">
+                      <div className="space-y-1">
+                        <FormLabel className="font-UbuntuBold text-primary ~text-sm/lg">
+                          {value.type}
                         </FormLabel>
+                        <FormDescription className="font-UbuntuRegular text-coolGray ~text-xs/base">
+                          {value.description}
+                        </FormDescription>
                       </div>
-                    </FormItem>
-                  );
-                }}
+                      <FormLabel className="~text-xs/base">
+                        {value.price}
+                      </FormLabel>
+                    </div>
+                  </FormItem>
+                )}
               />
             ))}
           </div>
@@ -129,7 +124,9 @@ function AddOns() {
           <div className="absolute bottom-5 left-4">
             <Button
               className="rounded-sm bg-transparent px-[1em] py-[.5em] font-semibold text-coolGray"
-              onClick={() => prevPage(setCurrentStep, "/", navigate)}
+              onClick={(e) => {
+                prevPage(setCurrentStep, "/plan", navigate, e);
+              }}
             >
               Go Back
             </Button>

@@ -111,7 +111,9 @@ function Summary() {
         <div>
           <Button
             variant="secondary"
-            onClick={() => prevPage(setCurrentStep, "/addons", navigate)}
+            onClick={(e) => {
+              prevPage(setCurrentStep, "/addons", navigate, e);
+            }}
           >
             Prev
           </Button>

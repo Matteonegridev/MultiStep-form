@@ -1,120 +1,171 @@
 # Frontend Mentor - Multi-step form solution
 
-This is a solution to the [Multi-step form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
-
-## Table of contents
-
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
-## Overview
-
-### The challenge
-
-Users should be able to:
-
-- Complete each step of the sequence
-- Go back to a previous step to update their selections
-- See a summary of their selections on the final step and confirm their order
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
-- Receive form validation messages if:
-  - A field has been missed
-  - The email address is not formatted correctly
-  - A step is submitted, but no selection has been made
-
-### Screenshot
-
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
-
-### Links
-
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+This is a solution to the [Multi-step form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ).
 
 ## My process
 
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
+- Typescript
+- Tailwind
+- React.js
+- Shadcn
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+Perfect project if you want to master the knowledge on forms. This multistep form has been built with Shadcn components. It was a nice challenge even tho I wouldn't find necessary.
 
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
+Here some pieces of code
 
 ```js
-const proudOfThisFunc = () => {
-  console.log("🎉");
-};
+function Form() {
+  // Provide context for the form:
+  const mainFormMethods =
+    useForm <
+    SchemaValues >
+    {
+      resolver: zodResolver(zodValidation),
+      mode: "all",
+      defaultValues: formDefaultValues,
+    };
+
+  return (
+    <div>
+      <StepContext>
+        <PlansContext>
+          <FormProvider {...mainFormMethods}>
+            <Stepper />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<PersonalInfo />} />
+                <Route path="/plan" element={<SelectPlan />} />
+                <Route path="/addons" element={<AddOns />} />
+                <Route path="/summary" element={<Summary />} />
+                <Route path="/thankyou" element={<ThankYou />} />
+              </Routes>
+              <DevTool control={mainFormMethods.control} />
+            </BrowserRouter>
+          </FormProvider>
+        </PlansContext>
+      </StepContext>
+    </div>
+  );
+}
+
+export default Form;
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+The hook useForm from React Hook Form allows to gather data from each step.
+Each step will send their data to the schema and inn the summary page sent to the server with a post call.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+### function:
 
-### Continued development
+a function that was a great help to show data into the summary page is:
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+```js
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+export const addonsData = {
+  monthly: [
+    {
+      id: "online_service",
+      type: "Online service",
+      description: "Access to multiplayer games",
+      price: "+$1/mo",
+    },
+    {
+      id: "larger_storage",
+      type: "Larger storage",
+      description: "Extra 1TB of cloud save",
+      price: "+$2/mo",
+    },
+    {
+      id: "customizable_profile",
+      type: "Customizable profile",
+      description: "Custom theme on your profile",
+      price: "+$2/mo",
+    },
+  ],
+  yearly: [
+    {
+      id: "online_service",
+      type: "Online service",
+      description: "Access to multiplayer games",
+      price: "+$10/yr",
+    },
+    {
+      id: "larger_storage",
+      type: "Larger storage",
+      description: "Extra 1TB of cloud save",
+      price: "+$20/yr",
+    },
+    {
+      id: "customizable_profile",
+      type: "Customizable profile",
+      description: "Custom theme on your profile",
+      price: "+$20/yr",
+    },
+  ],
+};
 
-### Useful resources
+export const handleAddonsPrice = (
+  data: string[],
+  isMonthly: boolean,
+): { type: string; price: string }[] | null => {
+  const addonsType = isMonthly ? addonsData.monthly : addonsData.yearly;
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+  // data is the array we pass in the function => fullData.addons.items. We want to map this array going thru each item in it. Then, we want to find the id cointained in addonsType that matches the data value. Once is found we wanna get its price and type or null. We will store in showData as an array of objects, with possible nulls in it:
+  const showData = data.map((values) => {
+    const addonFound = addonsType.find(({ id }) => id === values);
+    return addonFound
+      ? { type: addonFound.type, price: addonFound.price }
+      : null;
+  });
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+  // We want to filter the nulls out the showData array, so we will get only "true" values:
+  return showData.filter((addon) => addon !== null);
+};
+
+```
+
+First of all we need to filter either the data is monthly or yearly:
+
+```js
+//...
+const addonsType = isMonthly ? addonsData.monthly : addonsData.yearly;
+```
+
+The data we will send to the function is going to be monthly or yearly as well, so we want to match the value from that array of data with the id. If it's found we want to return an object with its price and type or null if absent.
+Finally we need to filter the nulls out.
+
+Here is where the data is used:
+
+```js
+const addonsInfo = isMonthly
+    ? handleAddonsPrice(fullData.addons.items as string[], true)
+    : handleAddonsPrice(fullData.addons.items as string[], false);
+
+  const plansInfo = isMonthly
+    ? handlePlanPrice(fullData.plan.type, true)
+    : handlePlanPrice(fullData.plan.type, false);
+
+  const totalAddons = addonsInfo
+    ?.map((values) => {
+      const onlyNumber = values.price.replace(/[^\d]/g, "");
+      return parseInt(onlyNumber);
+    })
+    .reduce((acc, price) => {
+      return acc + price;
+    }, 0);
+
+  const total = totalAddons
+    ? totalAddons + parseFloat(plansInfo.replace(/[^-\d]/g, ""))
+    : parseFloat(plansInfo.replace(/[^-\d]/g, ""));
+
+
+```
 
 ## Author
 
 - Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Matteo Negri

@@ -66,8 +66,8 @@ function Summary() {
     }, 0);
 
   const total = totalAddons
-    ? totalAddons + parseInt(plansInfo.replace(/[^\d]/g, ""))
-    : parseInt(plansInfo.replace(/[^\d]/g, ""));
+    ? totalAddons + parseFloat(plansInfo.replace(/[^-\d]/g, ""))
+    : parseFloat(plansInfo.replace(/[^-\d]/g, ""));
 
   return (
     <section>

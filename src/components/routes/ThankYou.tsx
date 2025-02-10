@@ -17,7 +17,7 @@ function ThankYou() {
   }, []);
 
   return (
-    <section className="min-h-[100dvh] w-full bg-magnolia md:h-screen">
+    <section className="min-h-[100dvh] w-full bg-magnolia md:grid md:h-screen">
       {isMobile && (
         <>
           <div className="absolute left-0 top-0">
@@ -26,7 +26,7 @@ function ThankYou() {
           <Stepper />
         </>
       )}
-      <div className="relative z-10 m-auto mt-16 w-11/12 rounded-lg bg-white px-5 py-8 shadow-lg md:grid md:w-4/5 md:grid-cols-[300px_1fr] md:px-3 md:py-4 xl:w-3/4">
+      <div className="relative z-10 m-auto mt-16 w-11/12 rounded-lg bg-white px-5 py-20 shadow-lg md:grid md:w-4/5 md:grid-cols-[300px_1fr] md:px-3 md:py-4 xl:w-3/4">
         {!isMobile && (
           <div>
             <SvgComp

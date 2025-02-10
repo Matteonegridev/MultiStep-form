@@ -5,18 +5,21 @@ export const planData = {
       name: "Arcade",
       price: "$9/mo",
       icon: "assets/images/icon-arcade.svg",
+      bonus: "",
     },
     {
       id: 1,
       name: "Advanced",
       price: "$12/mo",
       icon: "assets/images/icon-advanced.svg",
+      bonus: "",
     },
     {
       id: 2,
       name: "Pro",
       price: "$15/mo",
       icon: "assets/images/icon-pro.svg",
+      bonus: "",
     },
   ],
   yearly: [

@@ -1,101 +1,209 @@
-# Frontend Mentor - Multi-step form
+# Frontend Mentor - Multi-step form solution
 
-![Design preview for the Multi-step form coding challenge](./design/desktop-preview.jpg)
+This is a solution to the [Multi-step form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ).
 
-## Welcome! 👋
+## My process
 
-Thanks for checking out this front-end coding challenge.
+### Built with
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
+- Typescript
+- Tailwind
+- React.js
+- Shadcn
+- Mobile-first workflow
 
-**To do this challenge, you need a good understanding of HTML, CSS and JavaScript.**
+### What I learned
 
-## The challenge
+Perfect project if you want to master the knowledge on forms. This multistep form has been built with Shadcn components. It was a nice challenge even tho I wouldn't find necessary.
 
-Your challenge is to build out this multi-step form and get it looking as close to the design as possible.
+Here some pieces of code
 
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
+```js
+function Form() {
+  // Provide context for the form:
+  const mainFormMethods =
+    useForm <
+    SchemaValues >
+    {
+      resolver: zodResolver(zodValidation),
+      mode: "all",
+      defaultValues: formDefaultValues,
+    };
 
-Your users should be able to:
+  return (
+    <div>
+      <StepContext>
+        <PlansContext>
+          <FormProvider {...mainFormMethods}>
+            <Stepper />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<PersonalInfo />} />
+                <Route path="/plan" element={<SelectPlan />} />
+                <Route path="/addons" element={<AddOns />} />
+                <Route path="/summary" element={<Summary />} />
+                <Route path="/thankyou" element={<ThankYou />} />
+              </Routes>
+              <DevTool control={mainFormMethods.control} />
+            </BrowserRouter>
+          </FormProvider>
+        </PlansContext>
+      </StepContext>
+    </div>
+  );
+}
 
-- Complete each step of the sequence
-- Go back to a previous step to update their selections
-- See a summary of their selections on the final step and confirm their order
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
-- Receive form validation messages if:
-  - A field has been missed
-  - The email address is not formatted correctly
-  - A step is submitted, but no selection has been made
+export default Form;
+```
 
-Want some support on the challenge? [Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
+The hook useForm from React Hook Form allows to gather data from each step.
+Each step will send their data to the schema and inn the summary page sent to the server with a post call.
 
-## Where to find everything
+### function:
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design.
+a function that was a great help to show data into the summary page is:
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`.
+```js
 
-If you would like the design files (we provide Sketch & Figma versions) to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+export const addonsData = {
+  monthly: [
+    {
+      id: "online_service",
+      type: "Online service",
+      description: "Access to multiplayer games",
+      price: "+$1/mo",
+    },
+    {
+      id: "larger_storage",
+      type: "Larger storage",
+      description: "Extra 1TB of cloud save",
+      price: "+$2/mo",
+    },
+    {
+      id: "customizable_profile",
+      type: "Customizable profile",
+      description: "Custom theme on your profile",
+      price: "+$2/mo",
+    },
+  ],
+  yearly: [
+    {
+      id: "online_service",
+      type: "Online service",
+      description: "Access to multiplayer games",
+      price: "+$10/yr",
+    },
+    {
+      id: "larger_storage",
+      type: "Larger storage",
+      description: "Extra 1TB of cloud save",
+      price: "+$20/yr",
+    },
+    {
+      id: "customizable_profile",
+      type: "Customizable profile",
+      description: "Custom theme on your profile",
+      price: "+$20/yr",
+    },
+  ],
+};
 
-All the required assets for this project are in the `/assets` folder. The images are already exported for the correct screen size and optimized.
+export const handleAddonsPrice = (
+  data: string[],
+  isMonthly: boolean,
+): { type: string; price: string }[] | null => {
+  const addonsType = isMonthly ? addonsData.monthly : addonsData.yearly;
 
-We also include variable and static font files for the required fonts for this project. You can choose to either link to Google Fonts or use the local font files to host the fonts yourself. Note that we've removed the static font files for the font weights that aren't needed for this project.
+  // data is the array we pass in the function => fullData.addons.items. We want to map this array going thru each item in it. Then, we want to find the id cointained in addonsType that matches the data value. Once is found we wanna get its price and type or null. We will store in showData as an array of objects, with possible nulls in it:
+  const showData = data.map((values) => {
+    const addonFound = addonsType.find(({ id }) => id === values);
+    return addonFound
+      ? { type: addonFound.type, price: addonFound.price }
+      : null;
+  });
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+  // We want to filter the nulls out the showData array, so we will get only "true" values:
+  return showData.filter((addon) => addon !== null);
+};
 
-## Building your project
+```
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+First of all we need to filter either the data is monthly or yearly:
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+```js
+//...
+const addonsType = isMonthly ? addonsData.monthly : addonsData.yearly;
+```
 
-## Deploying your project
+The data we will send to the function is going to be monthly or yearly as well, so we want to match the value from that array of data with the id. If it's found we want to return an object with its price and type or null if absent.
+Finally we need to filter the nulls out.
 
-As mentioned above, there are many ways to host your project for free. Our recommended hosts are:
+Here is where the data is used:
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+```js
+const addonsInfo = isMonthly
+    ? handleAddonsPrice(fullData.addons.items as string[], true)
+    : handleAddonsPrice(fullData.addons.items as string[], false);
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
+  const plansInfo = isMonthly
+    ? handlePlanPrice(fullData.plan.type, true)
+    : handlePlanPrice(fullData.plan.type, false);
 
-## Create a custom `README.md`
+  const totalAddons = addonsInfo
+    ?.map((values) => {
+      const onlyNumber = values.price.replace(/[^\d]/g, "");
+      return parseInt(onlyNumber);
+    })
+    .reduce((acc, price) => {
+      return acc + price;
+    }, 0);
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+  const total = totalAddons
+    ? totalAddons + parseFloat(plansInfo.replace(/[^-\d]/g, ""))
+    : parseFloat(plansInfo.replace(/[^-\d]/g, ""));
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+```
 
-## Submitting your solution
+Another cool function, or better, a custom hook, it's the useMobile.tsx.
+Here we use the matchMedia to check if the window width matches with the given CSS.
+Instead of constantly listening for resize events, matchMedia() only triggers updates when the query's state changes, making it more efficient.
+Resize runs on every pixel change.
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
+```js
+import { useState, useEffect } from "react";
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+const useMobile = () => {
+  const [isMobile, setIsMobile] = useState(
+    window.matchMedia("(max-width: 768px)").matches,
+  );
 
-## Sharing your solution
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
 
-There are multiple places you can share your solution:
+    const handleChange = (event: MediaQueryListEvent) =>
+      setIsMobile(event.matches);
 
-1. Share your solution page in the **#finished-projects** channel of the [community](https://www.frontendmentor.io/community).
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback.
+  return isMobile;
+};
 
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
+export default useMobile;
+```
 
-## Got feedback for us?
+This works this way:
 
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
+```js
+const mediaQuery = window.matchMedia("(max-width: 768px)");
 
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
+console.log(mediaQuery.matches); // true if screen is < 768px, otherwise false
+console.log(mediaQuery.media); // Logs "(max-width: 768px)"
+```
 
-**Have fun building!** 🚀
+## Author
+
+- Website - [Add your name here](https://www.your-site.com)
+- Matteo Negri

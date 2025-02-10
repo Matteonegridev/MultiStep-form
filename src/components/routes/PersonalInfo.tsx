@@ -15,8 +15,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useContextHook } from "@/hooks/useStepContext";
 import { SchemaValues } from "@/schema/zodSchema";
-import { useState, useEffect } from "react";
 import Stepper from "../Stepper";
+import useMobile from "@/hooks/useMobile";
 
 function PersonalInfo() {
   // Hook to store data in the main form from RHF:
@@ -34,14 +34,7 @@ function PersonalInfo() {
     setCurrentStep((prev) => prev + 1);
   };
 
-  const mobileSize = window.innerWidth < 768;
-  const [isMobile, setIsMobile] = useState(mobileSize);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const isMobile = useMobile();
 
   return (
     <section>

@@ -13,7 +13,7 @@ import SvgComp from "@/utilities/SvgComp";
 import mobileSideBar from "/assets/images/bg-sidebar-mobile.svg";
 import desktopSideBar from "/assets/images/bg-sidebar-desktop.svg";
 import Stepper from "../Stepper";
-import { useEffect, useState } from "react";
+import useMobile from "@/hooks/useMobile";
 
 function Summary() {
   const form = useFormContext<SchemaValues>();
@@ -72,15 +72,7 @@ function Summary() {
     ? totalAddons + parseFloat(plansInfo.replace(/[^-\d]/g, ""))
     : parseFloat(plansInfo.replace(/[^-\d]/g, ""));
 
-  // Resizing useEffect:
-  const mobileSize = window.innerWidth < 768;
-  const [isMobile, setIsMobile] = useState(mobileSize);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const isMobile = useMobile();
 
   return (
     <section>

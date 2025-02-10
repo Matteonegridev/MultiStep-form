@@ -1,5 +1,5 @@
+import useMobile from "@/hooks/useMobile";
 import { useContextHook } from "@/hooks/useStepContext";
-import { useEffect, useState } from "react";
 
 function Stepper() {
   const steps = [
@@ -11,14 +11,7 @@ function Stepper() {
   const { currentStep } = useContextHook();
   console.log(currentStep);
 
-  const mobileSize = window.innerWidth < 768;
-  const [isMobile, setIsMobile] = useState(mobileSize);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const isMobile = useMobile();
 
   return (
     <div

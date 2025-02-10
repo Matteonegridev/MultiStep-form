@@ -76,5 +76,26 @@
         "larger_storage"
       ]
     }
+  },
+  {
+    "personalInfo": {
+      "name": "ffff",
+      "email": "matt@gmail.com",
+      "number": "+1 123 123 123"
+    },
+    "plan": {
+      "type": "Advanced",
+      "sub": {
+        "yearly": false,
+        "monthly": true
+      }
+    },
+    "addons": {
+      "items": [
+        "online_service",
+        "larger_storage",
+        "customizable_profile"
+      ]
+    }
   }
 ]

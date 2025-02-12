@@ -27,7 +27,7 @@ function Summary() {
   // Make the the call to the server to send the data:
   const sendData = async (formData: SchemaValues) => {
     try {
-      const response = await axios.post("http://localhost:5000/api", formData, {
+      const response = await axios.post("/api/data", formData, {
         headers: {
           "Content-Type": "application/json",
         },

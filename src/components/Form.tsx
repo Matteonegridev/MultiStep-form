@@ -12,7 +12,6 @@ import {
   SchemaValues,
   zodValidation,
 } from "@/schema/zodSchema";
-import { DevTool } from "@hookform/devtools";
 import ThankYou from "./routes/ThankYou";
 
 function Form() {
@@ -36,7 +35,6 @@ function Form() {
                 <Route path="/summary" element={<Summary />} />
                 <Route path="/thankyou" element={<ThankYou />} />
               </Routes>
-              <DevTool control={mainFormMethods.control} />
             </BrowserRouter>
           </FormProvider>
         </PlansContext>

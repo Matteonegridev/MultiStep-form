@@ -52,7 +52,7 @@ function SelectPlan() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex h-[calc(90dvh-10px)] flex-col bg-magnolia md:h-screen"
+          className="flex h-[calc(90dvh-10px)] flex-col overflow-auto bg-magnolia md:h-screen"
         >
           {isMobile && (
             <>
@@ -62,7 +62,7 @@ function SelectPlan() {
               <Stepper />
             </>
           )}
-          <div className="relative z-10 m-auto mt-16 w-11/12 rounded-lg bg-white px-5 py-8 shadow-lg md:grid md:w-4/5 md:grid-cols-[300px_1fr] md:px-3 md:py-4 xl:w-3/4">
+          <div className="relative z-10 m-auto my-16 w-11/12 rounded-lg bg-white px-5 py-8 shadow-lg md:grid md:w-4/5 md:grid-cols-[300px_1fr] md:px-3 md:py-4 xl:w-3/4">
             {!isMobile && (
               <div>
                 <SvgComp
@@ -194,7 +194,7 @@ function SelectPlan() {
             </div>
           </div>
           {isMobile && (
-            <>
+            <div>
               <div className="absolute bottom-5 right-5">
                 <button
                   className="rounded-sm bg-primary px-[1em] py-[.5em] font-semibold text-white"
@@ -213,7 +213,7 @@ function SelectPlan() {
                   Go Back
                 </Button>
               </div>
-            </>
+            </div>
           )}
         </form>
       </Form>
